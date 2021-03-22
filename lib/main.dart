@@ -129,19 +129,88 @@ class PetDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          Hero(
-            tag: file.petName,
-            child: CircleAvatar(
-              minRadius: 50,
-              backgroundImage: NetworkImage(
-                  'https://eu.ui-avatars.com/api/?name=${file.petName}'),
+    return Scaffold(
+      appBar: AppBar(),
+      body: Center(
+        child: Column(
+          children: [
+            Hero(
+              tag: file.petName,
+              child: CircleAvatar(
+                minRadius: 50,
+                backgroundImage: NetworkImage(
+                    'https://eu.ui-avatars.com/api/?name=${file.petName}'),
+              ),
             ),
-          ),
-        ],
+            Container(
+              padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
+              child: Center(
+                child: Column(
+                  children: [
+                    Wrap(
+                      children: [
+                        InfoElement(
+                          child: InfoLabel(
+                            label: 'Name',
+                            text: file.petName,
+                          ),
+                        ),
+                        InfoElement(
+                          child: InfoLabel(
+                            label: 'Species',
+                            text: file.petSpecies.toShortString(),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
       ),
+    );
+  }
+}
+
+class InfoElement extends StatelessWidget {
+  const InfoElement({
+    Key key,
+    @required this.child,
+  }) : super(key: key);
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return FittedBox(
+      child: Card(
+        child: Container(
+          padding: EdgeInsets.all(5),
+          child: child,
+        ),
+      ),
+    );
+  }
+}
+
+class InfoLabel extends StatelessWidget {
+  const InfoLabel({
+    @required this.label,
+    @required this.text,
+  });
+
+  final String label;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Text("$label: "),
+        Text(text.toUpperCase()),
+      ],
     );
   }
 }
@@ -150,7 +219,8 @@ openPetDetail(BuildContext context, PetFile file) {
   Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) => PetDetail(
-                file: file,
-              )));
+        builder: (context) => PetDetail(
+          file: file,
+        ),
+      ));
 }
