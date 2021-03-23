@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:maimate/features/home/domain/entities/appointment.dart';
 
@@ -6,7 +7,7 @@ import 'health_condition.dart';
 part 'pet_file.freezed.dart';
 
 @freezed
-abstract class PetFile with _$PetFile {
+class PetFile extends Equatable with _$PetFile {
   const factory PetFile({
     required String id,
     required String species,
@@ -17,4 +18,16 @@ abstract class PetFile with _$PetFile {
     required List<Appointment> appointments,
     required List<String> buddies,
   }) = _PetFile;
+
+  @override
+  List<Object?> get props => [
+        id,
+        species,
+        race,
+        birthday,
+        healthConditions,
+        notes,
+        appointments,
+        buddies
+      ];
 }
