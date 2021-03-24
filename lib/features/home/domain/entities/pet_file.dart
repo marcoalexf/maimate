@@ -7,7 +7,7 @@ import 'health_condition.dart';
 part 'pet_file.freezed.dart';
 
 @freezed
-class PetFile extends Equatable with _$PetFile {
+class PetFile with _$PetFile {
   const factory PetFile({
     required String id,
     required String species,
@@ -18,16 +18,4 @@ class PetFile extends Equatable with _$PetFile {
     required List<Appointment> appointments,
     required List<String> buddies,
   }) = _PetFile;
-
-  @override
-  List<Object?> get props => [
-        id,
-        species,
-        race,
-        birthday,
-        healthConditions,
-        notes,
-        appointments,
-        buddies
-      ];
 }
